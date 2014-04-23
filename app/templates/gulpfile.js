@@ -2,6 +2,7 @@
 // generated on <%= (new Date).toISOString().split('T')[0] %> using <%= pkg.name %> <%= pkg.version %>
 
 var gulp = require('gulp');
+var browserSync = require('browser-sync');
 
 // load plugins
 var $ = require('gulp-load-plugins')();
@@ -11,7 +12,8 @@ gulp.task('styles', function () {
         .pipe($.sass())
         .pipe($.autoprefixer('last 1 version'))
         .pipe(gulp.dest('app/styles'))
-        .pipe($.size());
+        .pipe($.size())
+        .pipe(browserSync.reload({stream:true}));
 });
 
 gulp.task('scripts', function () {
@@ -69,8 +71,7 @@ gulp.task('default', ['clean'], function () {
 });
 
 gulp.task('browser-sync', function() {
-    var browserSync = require('browser-sync');
-    browserSync.init(["app/*.html", "app/styles/**/*.css", "app/scripts/**/*.js", "app/images/**/*"], {
+    browserSync.init(null, {
         server: {
             baseDir: "app"
         },
@@ -98,7 +99,15 @@ gulp.task('wiredep', function () {
 });
 
 gulp.task('watch', ['browser-sync', 'serve'], function () {
+
     // watch for changes
+    gulp.watch([
+        "app/*.html",
+        "app/scripts/**/*.js",
+        "app/images/**/*"
+    ]).on('change', function () {
+        browserSync.reload();
+    });
 
     gulp.watch('app/styles/**/*.scss', ['styles']);
     gulp.watch('app/scripts/**/*.js', ['scripts']);
