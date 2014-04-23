@@ -70,7 +70,7 @@ gulp.task('default', ['clean'], function () {
 
 gulp.task('browser-sync', function() {
     var browserSync = require('browser-sync');
-    browserSync.init(null, {
+    browserSync.init(["app/*.html", "app/styles/**/*.css", "app/scripts/**/*.js", "app/images/**/*"], {
         server: {
             baseDir: "app"
         },
@@ -99,15 +99,6 @@ gulp.task('wiredep', function () {
 
 gulp.task('watch', ['browser-sync', 'serve'], function () {
     // watch for changes
-
-    gulp.watch([
-        'app/*.html',
-        'app/styles/**/*.css',
-        'app/scripts/**/*.js',
-        'app/images/**/*'
-    ]).on('change', function (file) {
-        server.changed(file.path);
-    });
 
     gulp.watch('app/styles/**/*.scss', ['styles']);
     gulp.watch('app/scripts/**/*.js', ['scripts']);

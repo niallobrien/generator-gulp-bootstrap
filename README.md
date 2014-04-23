@@ -4,8 +4,8 @@
 
 ## Features
 
-* CSS Autoprefixing *(new)*
 * Built-in preview server with BrowserSync *(new)*
+* CSS Autoprefixing *(new)*
 * Automagically compile Sass (via libsass) *(new)*
 * Automagically lint your scripts
 * Awesome Image Optimization (via OptiPNG, pngquant, jpegtran and gifsicle)
