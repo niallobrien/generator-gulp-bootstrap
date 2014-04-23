@@ -1,10 +1,10 @@
 {
-  "name": "generator-gulp-webapp",
-  "version": "0.0.8",
-  "description": "Scaffold out a front-end web app",
+  "name": "generator-gulp-webapp-emagine",
+  "version": "0.0.1",
+  "description": "Scaffold out a front-end web app using Sass (node-sass) by default",
   "license": "BSD",
-  "repository": "yeoman/generator-gulp-webapp",
-  "author": "The Yeoman Team",
+  "repository": "yeoman/generator-gulp-webapp-emagine",
+  "author": "Emagine Media",
   "main": "app/index.js",
   "engines": {
     "node": ">=0.10.0",

@@ -45,10 +45,9 @@
                 <div class="col-lg-6">
                     <h4>HTML5 Boilerplate</h4>
                     <p>HTML5 Boilerplate is a professional front-end template for building fast, robust, and adaptable web apps or sites.</p>
-                    <% if (includeSass) { %>
-                    <h4>Sass</h4>
-                    <p>Sass is the most mature, stable, and powerful professional grade CSS extension language in the world.</p>
-                    <% } %>
+                    <h4>Sass (libsass)</h4>
+                    <p>Sass is the most mature, stable, and powerful professional grade CSS extension language in the world.<br>
+                    At the core we're using Libsass which is an implemention of Sass written in C. Gulp-sass utilises node-sass which in turn utilises Libsass.</p>
                     <h4>Bootstrap</h4>
                     <p>Sleek, intuitive, and powerful mobile first front-end framework for faster and easier web development.</p><% if (includeModernizr) { %>
                     <h4>Modernizr</h4>
@@ -66,8 +65,7 @@
             <h1>'Allo, 'Allo!</h1>
             <p>You now have</p>
             <ul>
-                <li>HTML5 Boilerplate</li><% if (includeSass) { %>
-                <li>Sass</li><% } %><% if (includeModernizr) { %>
+                <li>HTML5 Boilerplate</li><% if (includeModernizr) { %>
                 <li>Modernizr</li><% } %>
             </ul>
         </div>

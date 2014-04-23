@@ -3,11 +3,10 @@
   "version": "0.0.0",
   "dependencies": {},
   "devDependencies": {
-    "connect": "^2.14.4",
-    "connect-livereload": "^0.4.0",
     "gulp": "^3.6.0",
     "gulp-autoprefixer": "^0.0.6",
     "gulp-bower-files": "^0.2.1",
+    "browser-sync": "^0.7.2",
     "gulp-cache": "^0.1.1",
     "gulp-clean": "^0.2.4",
     "gulp-csso": "^0.2.6",
@@ -15,9 +14,8 @@
     "gulp-flatten": "^0.0.2",
     "gulp-imagemin": "^0.2.0",
     "gulp-jshint": "^1.5.3",
-    "gulp-livereload": "^1.2.0",
-    "gulp-load-plugins": "^0.5.0",<% if (includeSass) { %>
-    "gulp-ruby-sass": "^0.4.3",<% } %>
+    "gulp-load-plugins": "^0.5.0",
+    "gulp-sass": "^0.7.1",
     "gulp-size": "^0.3.0",
     "gulp-uglify": "^0.2.1",
     "gulp-useref": "^0.3.1",

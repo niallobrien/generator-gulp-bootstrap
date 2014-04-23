@@ -6,14 +6,11 @@ var gulp = require('gulp');
 // load plugins
 var $ = require('gulp-load-plugins')();
 
-gulp.task('styles', function () {<% if (includeSass) { %>
+gulp.task('styles', function () {
     return gulp.src('app/styles/main.scss')
-        .pipe($.rubySass({
-            style: 'expanded'
-        }))<% } else { %>
-    return gulp.src('app/styles/main.css')<% } %>
+        .pipe($.sass())
         .pipe($.autoprefixer('last 1 version'))
-        .pipe(gulp.dest('.tmp/styles'))
+        .pipe(gulp.dest('app/styles'))
         .pipe($.size());
 });
 
@@ -62,7 +59,7 @@ gulp.task('fonts', function () {
 });
 
 gulp.task('clean', function () {
-    return gulp.src(['.tmp', 'dist'], { read: false }).pipe($.clean());
+    return gulp.src(['app/styles/main.css', 'dist'], { read: false }).pipe($.clean());
 });
 
 gulp.task('build', ['html', 'images', 'fonts']);
@@ -71,58 +68,48 @@ gulp.task('default', ['clean'], function () {
     gulp.start('build');
 });
 
-gulp.task('connect', function () {
-    var connect = require('connect');
-    var app = connect()
-        .use(require('connect-livereload')({ port: 35729 }))
-        .use(connect.static('app'))
-        .use(connect.static('.tmp'))
-        .use(connect.directory('app'));
-
-    require('http').createServer(app)
-        .listen(9000)
-        .on('listening', function () {
-            console.log('Started connect web server on http://localhost:9000');
-        });
+gulp.task('browser-sync', function() {
+    var browserSync = require('browser-sync');
+    browserSync.init(null, {
+        server: {
+            baseDir: "app"
+        },
+        // Append '.xip.io' to the hostname. (eg: http://192.168.0.4.xip.io:3002)
+        hostnameSuffix: ".xip.io"
+    });
 });
 
-gulp.task('serve', ['connect'<% if (includeSass) { %>, 'styles'<% } %>], function () {
-    require('opn')('http://localhost:9000');
-});
+gulp.task('serve', ['browser-sync', 'styles']);
 
 // inject bower components
 gulp.task('wiredep', function () {
     var wiredep = require('wiredep').stream;
-<% if (includeSass) { %>
     gulp.src('app/styles/*.scss')
         .pipe(wiredep({
             directory: 'app/bower_components'
         }))
         .pipe(gulp.dest('app/styles'));
-<% } %>
     gulp.src('app/*.html')
         .pipe(wiredep({
-            directory: 'app/bower_components'<% if (includeSass && includeBootstrap) { %>,
+            directory: 'app/bower_components'<% if (includeBootstrap) { %>,
             exclude: ['bootstrap-sass-official']<% } %>
         }))
         .pipe(gulp.dest('app'));
 });
 
-gulp.task('watch', ['connect', 'serve'], function () {
-    var server = $.livereload();
-
+gulp.task('watch', ['browser-sync', 'serve'], function () {
     // watch for changes
 
     gulp.watch([
         'app/*.html',
-        '.tmp/styles/**/*.css',
+        'app/styles/**/*.css',
         'app/scripts/**/*.js',
         'app/images/**/*'
     ]).on('change', function (file) {
         server.changed(file.path);
     });
 
-    gulp.watch('app/styles/**/*.<%= includeSass ? 'scss' : 'css' %>', ['styles']);
+    gulp.watch('app/styles/**/*.scss', ['styles']);
     gulp.watch('app/scripts/**/*.js', ['scripts']);
     gulp.watch('app/images/**/*', ['images']);
     gulp.watch('bower.json', ['wiredep']);

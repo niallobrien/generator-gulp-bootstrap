@@ -47,10 +47,6 @@ AppGenerator.prototype.askFor = function askFor() {
     name: 'features',
     message: 'What more would you like?',
     choices: [{
-      name: 'Sass',
-      value: 'includeSass',
-      checked: true
-    }, {
       name: 'Bootstrap',
       value: 'includeBootstrap',
       checked: true
@@ -70,7 +66,6 @@ AppGenerator.prototype.askFor = function askFor() {
 
     // manually deal with the response, get back and store the results.
     // we change a bit this way of doing to automatically do this in the self.prompt() method.
-    this.includeSass = hasFeature('includeSass');
     this.includeBootstrap = hasFeature('includeBootstrap');
     this.includeModernizr = hasFeature('includeModernizr');
 
@@ -112,7 +107,7 @@ AppGenerator.prototype.h5bp = function () {
 };
 
 AppGenerator.prototype.mainStylesheet = function () {
-  var css = 'main.' + (this.includeSass ? 's' : '') + 'css';
+  var css = 'main.scss';
   this.copy(css, 'app/styles/' + css);
 };
 
@@ -122,7 +117,7 @@ AppGenerator.prototype.writeIndex = function () {
 
   // wire Bootstrap plugins
   if (this.includeBootstrap) {
-    var bs = 'bower_components/bootstrap' + (this.includeSass ? '-sass-official/vendor/assets/javascripts/bootstrap/' : '/js/');
+    var bs = 'bower_components/bootstrap-sass-official/vendor/assets/javascripts/bootstrap/';
     this.indexFile = this.appendScripts(this.indexFile, 'scripts/plugins.js', [
       bs + 'affix.js',
       bs + 'alert.js',
@@ -183,14 +178,12 @@ AppGenerator.prototype.install = function () {
         src: 'app/index.html'
       });
 
-      if (this.includeSass) {
-        // wire Bower packages to .scss
-        wiredep({
-          bowerJson: bowerJson,
-          directory: 'app/bower_components',
-          src: 'app/styles/*.scss'
-        });
-      }
+      // wire Bower packages to .scss
+      wiredep({
+        bowerJson: bowerJson,
+        directory: 'app/bower_components',
+        src: 'app/styles/*.scss'
+      });
 
       done();
     }.bind(this)

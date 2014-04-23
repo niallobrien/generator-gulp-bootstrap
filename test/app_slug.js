@@ -34,7 +34,7 @@ describe('Gulp Webapp generator slug name', function () {
       'app/index.html'
     ];
     helpers.mockPrompt(this.webapp, {
-      features: ['includeSass']
+//      features: ['includeSass']
     });
 
     this.webapp.run({}, function () {
