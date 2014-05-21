@@ -71,7 +71,7 @@ gulp.task('default', ['clean'], function () {
 });
 
 gulp.task('browser-sync', function() {
-    browserSync.init(null, {
+    this.bs = browserSync.init(null, {
         server: {
             baseDir: "app"
         },
@@ -99,14 +99,14 @@ gulp.task('wiredep', function () {
 });
 
 gulp.task('watch', ['browser-sync', 'serve'], function () {
-
+    var bs = this.bs;
     // watch for changes
     gulp.watch([
         "app/*.html",
         "app/scripts/**/*.js",
         "app/images/**/*"
-    ]).on('change', function () {
-        browserSync.reload();
+    ]).on('change', function (file) {
+        bs.events.emit('file:changed', { path: file.path });
     });
 
     gulp.watch('app/styles/**/*.scss', ['styles']);
