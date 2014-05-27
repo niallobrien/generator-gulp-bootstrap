@@ -24,7 +24,8 @@
     "opn": "^0.1.2",
     "wiredep": "^1.7.0",
     "gulp-autoprefixer": "^0.0.7",
-    "gulp-imagemin": "^0.5.0"
+    "gulp-imagemin": "^0.5.0",
+    "streamqueue": "^0.1.0"
   },
   "engines": {
     "node": ">=0.10.0"

@@ -1,6 +1,6 @@
 {
   "name": "generator-gulp-bootstrap",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "Scaffold out a front-end web app using Sass (node-sass) by default",
   "license": "BSD",
   "repository": "niallobrien/generator-gulp-bootstrap",
