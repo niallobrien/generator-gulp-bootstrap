@@ -2,6 +2,9 @@
 
 [Yeoman](http://yeoman.io) generator that scaffolds out a front-end web app using [Gulp](http://gulpjs.com/) for the build process.
 
+## No longer maintained
+I no longer maintain this project as I simply don't use Twitter Bootstrap anymore. But please, feel free to fork and modify/improve what's here. Thanks.
+
 ## Features
 
 * Built-in preview server with BrowserSync *(new)*
